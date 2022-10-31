@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "default": "madabox-972",
+    "prod": "madabox-972"
+  },
+  "targets": {},
+  "etags": {}
+}

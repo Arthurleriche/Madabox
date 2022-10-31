@@ -1,0 +1,182 @@
+### GET ME
+GET   https://api.spotify.com/v1/me  HTTP/1.1\r\n
+Authorization: Bearer BQCNMfSjyrkFEQ7AIuaS2FZpb-9_-GUhyaPiVrfu7YMKiItFJSRge6Abxi8_xKSPAAq95xxQvs58Ey1b7wfcLoxwxHZCzBdEgdaiuEBzBoegDNe_USZ38YeW-r6diSHzyfTQyDIIt49JWAxgQyAwoWFCp86uAAN1QuK1eS7KE2dMFQkFE5JSLvBdsHhtt0CXhtq9Q5MPgPn1i0WZWHKwe13BiGBoawi_OJgdbo7Bt2NvbtJ08JmjJPHozBDtxZ1pQvuhrvwrkZajqu9ZuRGx
+Content-Type: application/json
+
+### GET REFRESH TOKEN
+POST  https://accounts.spotify.com/api/token?grant_type=refresh_token&refresh_token=AQCP3RWGLO1qXTjmdAIjA2itFBXq80WTi9wXwYERj7lMNgwn--Y-ESWQrgXT1TbpsNc2Hfm4M2WFpGmn4PP3TzA3Y44MiEEzfV10DGQOgtpAY1vh6Z4CNfW0pFHwmA1Vt0o HTTP/1.1\r\n
+content-type: application/x-www-form-urlencoded
+Authorization: Basic 9db07a7da8d44b2c84c019723aee275f:5f0ad9774ec14486a0e84c1a5221338c
+
+### GET USER'S DEVICES
+GET  https://api.spotify.com/v1/me/player/devices HTTP/1.1\r\n
+accept: Content-Type: application/json
+authorization: Bearer BQC49xQSmFeA7vZuPVL83e4SPeWL2UKlP7z07qjmuUw6fY-zCnMlfPpgmoqvHC9ieEqRqPYI8Los612QAy-HyvONRFmqvsJzGJxpaBtWbKiMZsH0J1albykg0fwprW9B525kJdGaTZWh8t1_rt2uU667-1g0SJNf6OlBAnwxDZIt6xZDgpMCqBWEI2H2uzpB-5QWBS6HTHiC5xRW1YQoFCg_kX6QKq568ncRAEBKtK2FxxEB5LCnxAm3QQNsiE33X18HOumhRZE-yI5DeMI
+
+
+### SEARCH SONG
+GET  https://api.spotify.com/v1/me/player/devices HTTP/1.1\r\n
+accept: Content-Type: application/json
+authorization: Bearer BQC49xQSmFeA7vZuPVL83e4SPeWL2UKlP7z07qjmuUw6fY-zCnMlfPpgmoqvHC9ieEqRqPYI8Los612QAy-HyvONRFmqvsJzGJxpaBtWbKiMZsH0J1albykg0fwprW9B525kJdGaTZWh8t1_rt2uU667-1g0SJNf6OlBAnwxDZIt6xZDgpMCqBWEI2H2uzpB-5QWBS6HTHiC5xRW1YQoFCg_kX6QKq568ncRAEBKtK2FxxEB5LCnxAm3QQNsiE33X18HOumhRZE-yI5DeMI
+
+###
+PUT https://api.spotify.com/v1/me/player HTTP/1.1
+content-type: application/json
+authorization: Bearer BQAKmcgfnYwwCCgEG3ZCFB80ridXvAtiYSi4rvcHS29y8yU9ICxWJkX4X4JZQXDK1JWanSFjN7VfV2C3Ym7mYSyyDrtBwqYf_H33CLvLHJPOsDWWSNfXSiq17AKHJe-RmzjYy8uJ0G_iKNDpb5sdiQpH3UhMV995AlVrGMAIZ4jx4J86pQO8E9IltYc6M1GsCYbBFXdU8qQlU1plZWpKpzvuVSh3jJV7HEVoi6rSvSAj2eYaJGYJWhBYnBkoGCcN6A7quDaSeoYJ7R5ojt4
+
+{
+  "device_ids": [
+    "d9630906035f014672d1141472bf75818c1da910"
+  ],
+  "play": true
+}
+
+
+
+### GET CURRENTLY PLAYING TRACK"
+GET  https://api.spotify.com/v1/me/player/currently-playing HTTP/1.1\r\n
+accept: Content-Type: application/json
+authorization: Bearer {{$dotenv JWT_TOKEN}}
+
+### GET PLAYER SPOTIFY
+GET  https://api.spotify.com/v1/me/player HTTP/1.1\r\n
+accept: Content-Type: application/json
+authorization: Bearer {{$dotenv JWT_TOKEN}}
+
+### PLAY
+PUT https://api.spotify.com/v1/me/player/play HTTP/1.1\r\n
+accept: Content-Type: application/json
+authorization: Bearer {{$dotenv JWT_TOKEN}}
+
+### PAUSE
+PUT https://api.spotify.com/v1/me/player/pause HTTP/1.1\r\n
+accept: Content-Type: application/json
+authorization: Bearer {{$dotenv JWT_TOKEN}}
+
+### PLAY TRACK BY PLAYLIST
+PUT https://api.spotify.com/v1/me/player/play HTTP/1.1
+content-type: application/json
+Authorization: Bearer {{$dotenv JWT_TOKEN}}
+
+{
+  "context_uri": "spotify:playlist:7EdeeCJCr8Ozbj22ECXm62",
+  "offset": {
+    "position": 0
+  },
+  "position_ms": 0
+}
+
+### PLAY TRACK BY ALBUM_ID
+POST https://api.spotify.com/v1/me/player/queue HTTP/1.1
+content-type: application/json
+Authorization: Bearer {{$dotenv JWT_TOKEN}}
+
+{
+  "uris": ["spotify:track:0QLjm2PNqKRJfWsxDPa9Ra"],
+  "device_id": "8433bc1fb3911a632768376ebbcf8564ab674ded"
+}
+
+### PLAY TRACKS BY TRACK_ID
+PUT https://api.spotify.com/v1/me/player/play HTTP/1.1
+content-type: application/json
+Authorization: Bearer {{$dotenv JWT_TOKEN}}
+
+{
+  "uris": [ "spotify:track:69tsRNfsJlYKupCIQJp4Hk", "spotify:track:0QLjm2PNqKRJfWsxDPa9Ra", "spotify:track:3XW46ov9cTkv6JWNchd9ZE"],
+  "position_ms": 0
+}
+
+### ADD TO QUEUE LIST
+POST https://api.spotify.com/v1/me/player/queue?uri=spotify:track:69tsRNfsJlYKupCIQJp4Hk HTTP/1.1
+content-type: application/json
+Authorization: Bearer {{$dotenv JWT_TOKEN}}
+
+{
+  "device_id": "8433bc1fb3911a632768376ebbcf8564ab674ded",
+}
+
+
+### TRANSFER PLAYBACK & PLAY
+### Les devices_ids sont différents à chaque ouverture de l'app (desktop/web/mobile/zon-zer). 
+### Pour les récupérer, il faut GET USER'S DEVICES.
+
+### SPOTIFY DESKTOP 
+PUT https://api.spotify.com/v1/me/player HTTP/1.1
+content-type: application/json
+authorization: Bearer BQCrZxFnC-J3CqIr7a6lk6sHJmRVb4zT1opHfaPjMwcbdWM6Sd6DRVnyaGBE9T8BiswNfU21XB3Z7_Ojjf8kl8Hq2yYBV4CG2iXCY1WajBuQqpF-rHCEjUu7eJyQhrLFTLJAZDR8NnWsAQ1jZyLjWcPT4A10zhjhOZVqzEN4KUdQ3LuGoZnA8lMJ9-yXkPxrsRxFmKIWpyoQINpPyCnI1P2uVjHMQwML05togW19AC4mqsqzRsjL2_CAaE2heW-EgxYTFNSebnvkmsjnrww
+
+{
+  "device_ids": [
+    "8ab8b927d18a3e6467e634b82a8f0561c1ce2ddc"
+  ],
+  "play": true
+}
+
+### SPOTIFY WEB APP
+PUT https://api.spotify.com/v1/me/player HTTP/1.1
+content-type: application/json
+Authorization: Bearer {{$dotenv JWT_TOKEN}}
+
+{
+  "device_ids": [
+    "d9630906035f014672d1141472bf75818c1da910"
+  ],
+  "play": true
+}
+
+### SPOTIFY ZON-ZER
+PUT https://api.spotify.com/v1/me/player HTTP/1.1
+content-type: application/json
+Authorization: Bearer {{$dotenv JWT_TOKEN}}
+
+{
+  "device_ids": [
+    "8b9701bf8226e6d2652ee905ea73a66701b9e828"
+  ],
+  
+}
+
+### SPOTIFY MOBILE
+PUT https://api.spotify.com/v1/me/player HTTP/1.1
+content-type: application/json
+Authorization: Bearer {{$dotenv JWT_TOKEN}}
+
+{
+  "device_ids": [
+    "e8b03511c4f0c42405a433db9090c3feac57b2e6"
+  ],
+  "play": true
+}
+
+### GET PLAYLIST
+GET https://api.spotify.com/v1/me/playlists  HTTP/1.1
+content-type: application/json
+Authorization: Bearer {{$dotenv JWT_TOKEN}}
+
+### CREATE PLAYLIST
+POST https://api.spotify.com/v1/users/11129224834/playlists HTTP/1.1
+content-type: application/json
+Authorization: Bearer {{$dotenv JWT_TOKEN}}
+
+{
+  "name": "NEW PLAYLIST TEST",
+  "description": "New playlist description"
+}
+
+### DELETE PLAYLIST
+DELETE https://api.spotify.com/v1/playlists/5ffjronfLCpxxC0nsCtbLJ/followers HTTP/1.1
+content-type: application/json
+Authorization: Bearer {{$dotenv JWT_TOKEN}}
+
+### ADD SONG
+POST https://api.spotify.com/v1/playlists/5ffjronfLCpxxC0nsCtbLJ/tracks HTTP/1.1
+content-type: application/json
+Authorization: Bearer {{$dotenv JWT_TOKEN}}
+
+{"uris": ["spotify:track:4iV5W9uYEdYUVa79Axb7Rh","spotify:track:1301WleyT98MSxVHPZCA6M", "spotify:episode:512ojhOuo1ktJprKbVcKyQ"]}
+
+### UPDATE PLAYLIST
+PUT https://api.spotify.com/v1/playlists/7EdeeCJCr8Ozbj22ECXm62/tracks?uris=spotify:track:1301WleyT98MSxVHPZCA6M,spotify:track:4iV5W9uYEdYUVa79Axb7Rh,spotify:episode:512ojhOuo1ktJprKbVcKyQ HTTP/1.1
+content-type: application/json
+Authorization: Bearer {{$dotenv JWT_TOKEN}}
+

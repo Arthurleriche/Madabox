@@ -1,0 +1,20 @@
+{
+  "usersAdmin": [
+    {
+      "email": "lerichearthur@gmail.com",
+      "username": "Rookinhos",
+      "first_name": "Arthur",
+      "last_name": "Leriche",
+      "role": 0
+    }
+  ],
+  "users": [
+    {
+      "email": "user1@example.com",
+      "username": "User username 1",
+      "first_name": "user 1",
+      "last_name": "last_name",
+      "role": 1
+    }
+  ]
+}
