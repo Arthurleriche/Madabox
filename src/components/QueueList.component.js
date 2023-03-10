@@ -1,15 +1,10 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 import { useSelector } from 'react-redux';
 import TracklistItem from './TracklistItem';
 
-export default function QueueList({ newSong }) {
+export default function QueueList() {
   const session = useSelector((state) => state.session.session);
   const listRef = useRef(null);
-
-  useEffect(() => {
-    console.log(newSong);
-    // listRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [newSong]);
 
   if (!session) {
     return <p>Loading...</p>;
