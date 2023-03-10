@@ -9,10 +9,14 @@ const firestoreGetDoc = async (collection, docId) => {
 };
 
 const firestoreUpdateDoc = async (collection, id, body) => {
-  updateDoc(doc(db, collection, id), body).catch(() => {
-    throw new Error('Update Failed');
-  });
-  return true;
+  try {
+    await updateDoc(doc(db, collection, id), body).catch(() => {
+      throw new Error('Update Failed');
+    });
+    return true;
+  } catch (error) {
+    throw new Error('error during update');
+  }
 };
 
 const checkIfTrackExist = (list, newTrack) => {
@@ -25,8 +29,10 @@ const FIRESTORE = {
   getDoc: (collection, id) => {
     return firestoreGetDoc(collection, id);
   },
-  updateDoc: (collection, id, body) => {
-    return firestoreUpdateDoc(collection, id, body);
+
+  updateDoc: async (collection, id, body) => {
+    const response = await firestoreUpdateDoc(collection, id, body);
+    return response;
   },
 
   addSongToQueueList: async (session, body) => {
@@ -37,8 +43,8 @@ const FIRESTORE = {
     }
   },
 
-  updateQueueListNextPlay: async (id, track, ext) => {
-    const session = await firestoreGetDoc('sessions', id);
+  updateQueueListNextPlay: async (session, track, ext) => {
+    const { queue_list, uid, lib } = session;
 
     const currentTrack = {
       track: track.track,
@@ -49,20 +55,20 @@ const FIRESTORE = {
       user_uid: track.user_uid,
     };
 
-    if (session.queue_list[0] && session.queue_list[0].uri === track.uri) {
+    if (queue_list[0] && queue_list[0].uri === track.uri) {
       let sessionTmp = session;
       sessionTmp.queue_list.splice(0, 1);
-      if (!checkIfTrackExist(sessionTmp.library, currentTrack)) {
+      if (!checkIfTrackExist(sessionTmp.library, currentTrack) && lib) {
         session.library = [...sessionTmp.library, currentTrack];
       }
-      firestoreUpdateDoc('sessions', id, {
+      firestoreUpdateDoc('sessions', uid, {
         active: true,
         queue_list: sessionTmp.queue_list,
         current_song: currentTrack,
         library: sessionTmp.library,
       });
     } else if (ext) {
-      firestoreUpdateDoc('sessions', id, { current_song: currentTrack });
+      firestoreUpdateDoc('sessions', uid, { current_song: currentTrack });
     }
   },
 

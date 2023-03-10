@@ -11,7 +11,7 @@ global.access_token = '';
 let clientId = '';
 let clientSecret = '';
 
-const local = false;
+const local = true;
 
 var allowlist = ['http://localhost:3000', 'https://madabox-972.web.app'];
 var corsOptionsDelegate = function (req, callback) {

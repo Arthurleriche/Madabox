@@ -39,7 +39,6 @@ const searchSong = async (token, search, session) => {
 };
 
 const playNextByTrackId = async (token, session, nextTrack, ext) => {
-  const { uid } = session;
   if (nextTrack) {
     const response = await fetch(`https://api.spotify.com/v1/me/player/play`, {
       method: 'PUT',
@@ -53,7 +52,7 @@ const playNextByTrackId = async (token, session, nextTrack, ext) => {
     });
 
     if (response.ok) {
-      await FIRESTORE.updateQueueListNextPlay(uid, nextTrack, ext);
+      await FIRESTORE.updateQueueListNextPlay(session, nextTrack, ext);
     } else if (response.status === 401) {
       const tokenTmp = await refreshToken(session.user_uid, session);
       return playNextByTrackId(tokenTmp, session, nextTrack, ext);
@@ -146,7 +145,7 @@ const SPOTIFY = {
   },
 
   playNextByTrackId: async (session, nextTrack, ext) => {
-    const { spotify_token, uid, user_uid } = session;
+    const { spotify_token, user_uid } = session;
 
     if (nextTrack) {
       const response = await fetch(
@@ -164,7 +163,7 @@ const SPOTIFY = {
       );
 
       if (response.status === 202) {
-        await FIRESTORE.updateQueueListNextPlay(uid, nextTrack, ext);
+        await FIRESTORE.updateQueueListNextPlay(session, nextTrack, ext);
         return true;
       } else if (response.status === 401) {
         const tokenTmp = await refreshToken(user_uid);

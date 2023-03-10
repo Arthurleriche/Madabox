@@ -89,6 +89,7 @@ async function createSession(session) {
     skipNumber: '7',
     password: '123',
     library: [],
+    lib: false,
   };
 
   let docRef = await admin

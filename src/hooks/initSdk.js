@@ -22,7 +22,7 @@ export const nextTrack = async (session) => {
 
     return SPOTIFY.playNextByTrackId(sessionTmp, randomSong[randomNum], true);
   }
-  return SPOTIFY.playNextByTrackId(sessionTmp, sessionTmp.queue_list[0]);
+  return SPOTIFY.playNextByTrackId(sessionTmp, sessionTmp.queue_list[0], false);
 };
 
 const checkIf = async (state, session) => {

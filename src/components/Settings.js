@@ -13,10 +13,11 @@ function Settings() {
     password: '',
     active: false,
     library: [],
+    lib: false,
     uid: null,
   });
 
-  const { name, skipNumber, password, active, library, uid } = settings;
+  const { name, skipNumber, password, active, library, uid, lib } = settings;
 
   useEffect(() => {
     const updateStore = async () => {
@@ -34,6 +35,7 @@ function Settings() {
         password: sessionTmp?.password,
         active: sessionTmp?.active,
         library: sessionTmp?.library,
+        lib: sessionTmp?.lib,
       });
     };
     updateStore();
@@ -41,12 +43,19 @@ function Settings() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    FIRESTORE.updateDoc('sessions', settings.uid, settings);
+    await FIRESTORE.updateDoc('sessions', settings.uid, settings);
+
+    alert('Changes saved');
   };
 
-  const handleChange = () => {
+  const handleChangeActive = () => {
     setSettings((prev) => {
       return { ...settings, active: !prev.active };
+    });
+  };
+  const handleChangeLib = () => {
+    setSettings((prev) => {
+      return { ...settings, lib: !prev.lib };
     });
   };
 
@@ -54,9 +63,8 @@ function Settings() {
     const library = settings.library.filter(
       (song) => song.uri !== deleteTrack.uri
     );
-    FIRESTORE.updateDoc('sessions', settings.uid, { library });
+    await FIRESTORE.updateDoc('sessions', settings.uid, { library });
     setSettings({ ...settings, library });
-    console.log('delete');
   };
 
   const displayLibrary = library.map((song) => {
@@ -133,12 +141,25 @@ function Settings() {
 
         <div className="flex items-center mb-4 ">
           <label htmlFor="session" className="text-white mr-4">
+            Record in Library
+          </label>
+          <input
+            name="session"
+            checked={lib}
+            onChange={handleChangeLib}
+            type="checkbox"
+            className="w-6"
+          />
+        </div>
+
+        <div className="flex items-center mb-4 ">
+          <label htmlFor="session" className="text-white mr-4">
             Active Session
           </label>
           <input
             name="session"
             checked={active}
-            onChange={handleChange}
+            onChange={handleChangeActive}
             type="checkbox"
             className="w-6"
           />
